@@ -12,3 +12,9 @@ List<Transaction> localTransactions = [
   Transaction(name: "transfered money to Agomina and Portia",price: 19.99),
   Transaction(name: "transfered money to Portia",price: 39.99)
 ];
+
+List<String> paymentOptions = [
+  "Tigo Cash",
+  "Vodafone Cash",
+  "MTN mobile money"
+];

@@ -3,6 +3,8 @@ import '../components/home_bg.dart';
 import '../components/account_balance_widget.dart';
 import '../components/main_menu_widget.dart';
 import './money_transfer_screen.dart';
+import './deposit_cash_screen.dart';
+import './draw_funds_page.dart';
 
 class HomePage extends StatelessWidget {
   static const String tag = "home-page";
@@ -48,12 +50,12 @@ class HomePage extends StatelessWidget {
                   SizedBox(height: 15,),
                   MainMenuWidget(
                     title: "Draw Funds",
-                    onTap: ()=>{},
+                    onTap: ()=>Navigator.of(context).pushNamed(DrawFundsPage.tag),
                   ),
                   SizedBox(height: 15,),
                   MainMenuWidget(
                     title: "Deposit Cash",
-                    onTap: () => {},
+                    onTap: () => Navigator.of(context).pushNamed(DepositCashPage.tag),
                   )
 
                 ]

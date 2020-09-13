@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../provider/auth_provider.dart';
 
 class MoneyTransferButton extends StatelessWidget {
-  
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
+    final auth = Provider.of<AuthProvider>(context, listen: false);
 
     return Container(
       width: double.infinity,
@@ -28,19 +30,37 @@ class MoneyTransferButton extends StatelessWidget {
               color: Colors.black12.withAlpha(10),
               height: 0,
             ),
-            SizedBox(height: 10,),
+            SizedBox(
+              height: 10,
+            ),
             Text('Total you pay'),
-            SizedBox(height: 10,),
+            SizedBox(
+              height: 10,
+            ),
             Text(
               "\$287.99",
-              style: Theme.of(context).textTheme.headline4.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Colors.black
-              ),
+              style: Theme.of(context)
+                  .textTheme
+                  .headline4
+                  .copyWith(fontWeight: FontWeight.bold, color: Colors.black),
             ),
-            SizedBox(height: 15,),
+            SizedBox(
+              height: 15,
+            ),
             RaisedButton(
-              onPressed: ()=>{},
+              onPressed: () {
+                auth.authenticate().then((value) {
+                  Scaffold.of(context).hideCurrentSnackBar();
+                  Scaffold.of(context).showSnackBar(SnackBar(
+                    content: Text("Success"),
+                  ));
+                }).catchError((e) {
+                  Scaffold.of(context).hideCurrentSnackBar();
+                  Scaffold.of(context).showSnackBar(SnackBar(
+                    content: Text("Failed"),
+                  ));
+                });
+              },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
