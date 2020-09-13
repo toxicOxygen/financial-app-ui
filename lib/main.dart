@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         title: 'Mobile POS',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(primarySwatch: Colors.blue),
-        home: HomePage(),
+        home: WelcomePage(),
         routes: {
           HomePage.tag: (ctx) => HomePage(),
           WelcomePage.tag: (ctx) => WelcomePage(),
