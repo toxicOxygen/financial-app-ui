@@ -3,8 +3,17 @@ import 'package:flutter/material.dart';
 class MainMenuWidget extends StatelessWidget {
   final String title;
   final VoidCallback onTap;
+  final double elevation;
+  final Widget trailing;
+  final bool bold;
 
-  MainMenuWidget({@required this.title,@required this.onTap});
+  MainMenuWidget({
+    @required this.title,
+    this.onTap,
+    this.elevation,
+    this.trailing,
+    this.bold = true
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,12 +27,12 @@ class MainMenuWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(10)
       ),
       child: Card(
-        elevation: 10.0,
+        elevation: elevation??10.0,
         child: Center(
           child: ListTile(
             onTap: onTap,
-            title: Text(this.title),
-            trailing: Icon(Icons.chevron_right),
+            title: Text(this.title,style: TextStyle(fontWeight: bold?FontWeight.bold:FontWeight.normal),),
+            trailing: trailing ?? Icon(Icons.chevron_right),
           ),
         ),
       ),

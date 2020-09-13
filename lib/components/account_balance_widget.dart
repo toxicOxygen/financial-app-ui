@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
-
+import '../screens/transaction_history_screen.dart';
 
 class AccountBalanceWidget extends StatelessWidget {
+  final bool showBtn;
+
+  AccountBalanceWidget({this.showBtn = true});
 
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+    
 
     return Container(
       height: height * 0.3,
@@ -52,12 +56,15 @@ class AccountBalanceWidget extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
-                trailing: FlatButton.icon(
-                  onPressed: ()=>{}, 
+                
+                trailing: showBtn ? FlatButton.icon(
+                  onPressed: ()=>{
+                    Navigator.of(context).pushNamed(TransactionHistoryPage.tag)
+                  }, 
                   icon: Icon(Icons.details), 
                   label: Text("Details"),
                   textColor: Colors.white,
-                ),
+                ):Container(width: 0.01,height: 0.01,),
               ),
             ]
           ),

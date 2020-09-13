@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../components/home_bg.dart';
 import '../components/account_balance_widget.dart';
 import '../components/main_menu_widget.dart';
+import './money_transfer_screen.dart';
 
 class HomePage extends StatelessWidget {
   static const String tag = "home-page";
@@ -33,13 +34,16 @@ class HomePage extends StatelessWidget {
 
 
                   //account balance widget
-                  AccountBalanceWidget(),
+                  Hero(
+                    tag: "credit-card",
+                    child: AccountBalanceWidget()
+                  ),
 
                   //menu widgets
                   SizedBox(height: 15,),
                   MainMenuWidget(
                     title: "Money Transfer",
-                    onTap: ()=>{},
+                    onTap: ()=>Navigator.of(context).pushNamed(MoneyTransferPage.tag),
                   ),
                   SizedBox(height: 15,),
                   MainMenuWidget(
