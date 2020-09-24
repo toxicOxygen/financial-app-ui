@@ -7,9 +7,7 @@ import '../components/my_background.dart';
 class DepositCashPage extends StatelessWidget {
   static const String tag = "deposit-cash-screen";
 
-  final textStyle = TextStyle(
-    color: Colors.white
-  );
+  final textStyle = TextStyle(color: Colors.white);
 
   @override
   Widget build(BuildContext context) {
@@ -18,27 +16,31 @@ class DepositCashPage extends StatelessWidget {
         children: [
           MyBackground(),
           SafeArea(
-            child: Column(
-              children: [
-                ListTile(
-                  leading: IconButton(
-                    icon: Icon(Platform.isIOS?Icons.chevron_left:Icons.arrow_back),
-                    color: Colors.white,
-                    onPressed: (){
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                  title: Text("Deposit Funds Page",style: textStyle,),
+              child: Column(
+            children: [
+              ListTile(
+                leading: IconButton(
+                  icon: Icon(
+                      Platform.isIOS ? Icons.chevron_left : Icons.arrow_back),
+                  color: Colors.white,
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
                 ),
-                Divider(height: 0,),
-                Hero(
-                  tag: "credit-card",
-                  child: AccountBalanceWidget()
+                title: Text(
+                  "Deposit Funds Page",
+                  style: textStyle,
                 ),
-                CustomCashoutForm(),
-              ],
-            )
-          ),
+              ),
+              Divider(
+                height: 0,
+              ),
+              Hero(tag: "credit-card", child: AccountBalanceWidget()),
+              CustomCashoutForm(
+                showPhoneNumber: true,
+              ),
+            ],
+          )),
         ],
       ),
     );

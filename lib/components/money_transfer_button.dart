@@ -38,7 +38,7 @@ class MoneyTransferButton extends StatelessWidget {
               height: 10,
             ),
             Text(
-              "\$287.99",
+              "¢287.99",
               style: Theme.of(context)
                   .textTheme
                   .headline4

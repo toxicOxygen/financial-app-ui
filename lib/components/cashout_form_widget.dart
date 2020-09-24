@@ -7,8 +7,10 @@ import '../local_data.dart';
 class CustomCashoutForm extends StatelessWidget {
   CustomCashoutForm({
     Key key,
+    this.showPhoneNumber = false,
   }) : super(key: key);
 
+  final bool showPhoneNumber;
   final TextStyle textStyle = TextStyle(color: Colors.white);
 
   @override
@@ -52,15 +54,39 @@ class CustomCashoutForm extends StatelessWidget {
               keyboardType: TextInputType.number,
               maxLength: 10,
               decoration: InputDecoration(
-                  labelText: "Enter amount",
+                labelText: "Enter amount",
+                labelStyle: TextStyle(color: Colors.white),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(color: Colors.white),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(color: Colors.white),
+                ),
+              ),
+            ),
+            if (showPhoneNumber)
+              SizedBox(
+                height: 10,
+              ),
+            if (showPhoneNumber)
+              TextFormField(
+                keyboardType: TextInputType.phone,
+                maxLength: 10,
+                decoration: InputDecoration(
+                  labelText: "Phone",
                   labelStyle: TextStyle(color: Colors.white),
                   border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(color: Colors.white)),
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(color: Colors.white),
+                  ),
                   enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(color: Colors.white))),
-            ),
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(color: Colors.white),
+                  ),
+                ),
+              ),
             Align(
               alignment: Alignment.bottomRight,
               child: RaisedButton.icon(

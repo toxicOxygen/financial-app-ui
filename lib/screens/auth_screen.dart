@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_pos/provider/auth_provider.dart';
+import '../provider/auth_provider.dart';
+import '../utils/validators.dart';
 import 'package:provider/provider.dart';
 import './home_screen.dart';
 import '../components/my_background.dart';
@@ -55,7 +57,7 @@ class AuthScreen extends StatelessWidget {
 }
 
 class CustomInPageForm extends StatelessWidget {
-  const CustomInPageForm({
+  CustomInPageForm({
     Key key,
     @required TextStyle formInputTextStyle,
     @required OutlineInputBorder enabledBorder,
@@ -65,23 +67,29 @@ class CustomInPageForm extends StatelessWidget {
 
   final TextStyle _formInputTextStyle;
   final OutlineInputBorder _enabledBorder;
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     final localAuth = Provider.of<AuthProvider>(context, listen: true);
 
     return Form(
+      key: _formKey,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
           TextFormField(
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
-                labelText: "Enter E-zwich number",
-                labelStyle: _formInputTextStyle,
-                enabledBorder: _enabledBorder,
-                border: _enabledBorder),
+              labelText: "Enter E-zwich number",
+              labelStyle: _formInputTextStyle,
+              enabledBorder: _enabledBorder,
+              errorStyle: TextStyle(color: Colors.white),
+              border: _enabledBorder,
+            ),
             style: _formInputTextStyle,
+            onSaved: (val) => localAuth.cardNumber = val,
+            validator: (val) => validateCardNumber(val),
           ),
           SizedBox(
             height: 15,
@@ -94,20 +102,25 @@ class CustomInPageForm extends StatelessWidget {
             label: Text(localAuth.isAuthenticating
                 ? "Canecel"
                 : "Authenticate and proceed"),
-            onPressed: () async {
-              localAuth.authenticate().then((value) {
-                Navigator.pop(context);
-                Navigator.of(context).pushReplacementNamed(HomePage.tag);
-              }).catchError((e) {
-                print(e);
-                Scaffold.of(context).hideCurrentSnackBar();
-                Scaffold.of(context)
-                    .showSnackBar(SnackBar(content: Text(e.toString())));
-              });
-            },
+            onPressed: () => _submitForm(context, localAuth),
           )
         ]),
       ),
     );
+  }
+
+  void _submitForm(context, auth) async {
+    if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
+      auth.authenticate().then((value) {
+        Navigator.pop(context);
+        Navigator.of(context).pushReplacementNamed(HomePage.tag);
+      }).catchError((e) {
+        print(e);
+        Scaffold.of(context).hideCurrentSnackBar();
+        Scaffold.of(context)
+            .showSnackBar(SnackBar(content: Text(e.toString())));
+      });
+    }
   }
 }

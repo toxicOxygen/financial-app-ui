@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
 
 class AuthProvider extends ChangeNotifier {
+  String cardNumber;
   final localAuth = LocalAuthentication();
   bool isAuthenticating = false;
 
